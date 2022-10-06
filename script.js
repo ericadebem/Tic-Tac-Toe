@@ -1,9 +1,9 @@
-const currentPlayer = document.querySelector("currentPlayer");
+const currentPlayer = document.querySelector(".currentPlayer");
 
 let selected;
-let player = "x";
+let player = "X";
 
-let position = [
+let positions = [
     [1, 2, 3,],
     [4, 5, 6,],
     [7, 8, 9,],
@@ -37,6 +37,29 @@ function newMove(e) {
         check();
     }, [100]);
 
-    player = player === "x" ? "O" : "X";
+    player = player === "X" ? "O" : "X";
     currentPlayer.innerHTML = `JOGADOR DA VEZ: ${player}`;
+}
+
+function check() {
+    let playerLastMove = player === "X" ? "O" : "X";
+
+    const items = selected
+        .map((item, i) => [item, i])
+        .filter((item) => item[0] === playerLastMove)
+        .map((item) => item[1]);
+
+    for (pos of position) {
+        if (pos.every((item) => items.includes(item))) {
+            alert("O JOGADOR '" + playerLastMove + "' GANHOU!");
+            init();
+            return;
+        }
+    }   
+
+    if (selected.filter((item) => item).length === 9) {
+        alert("EITA! DEU EMPATE!");
+        init();
+        return;
+    }
 }
