@@ -31,7 +31,7 @@ function newMove(e) {
     const index = e.target.getAttribute("data-i");
     e.target.innerHTML = player;
     e.target.removeEventListener("click", newMove);
-    selected[index] + player;
+    selected[index] = player;
 
     setTimeout(() => {
         check();
@@ -49,7 +49,7 @@ function check() {
         .filter((item) => item[0] === playerLastMove)
         .map((item) => item[1]);
 
-    for (pos of position) {
+    for (pos of positions) {
         if (pos.every((item) => items.includes(item))) {
             alert("O JOGADOR '" + playerLastMove + "' GANHOU!");
             init();
